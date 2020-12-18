@@ -73,6 +73,7 @@ if __name__ == "__main__":
     mrpt_test.initialize(points)
 
     print("Query point")
+    query_point = np.random.random(200)
     nearest_point_idx = mrpt_test.findNearest(query_point)
     print("RESULTS:")
     print("Query point:")

@@ -19,7 +19,6 @@ class MRPTNode:
         assert len(data) > 0
 
         if len(data) < self.config["min_split"] or self.depth == self.config["max_depth"]:
-            print("Creating Tree Node at level {} with {} datapoints -> LINEAR".format(self.depth, len(data)))
             # no split anymore
             self.data = data
             self.data_ref = data_ref
@@ -35,7 +34,6 @@ class MRPTNode:
 
 
             if n_dataLeft > 0 and n_dataRight > 0:
-                print("Creating Tree Node at level {} with {} datapoints -> SPLIT".format(self.depth, len(data)))
                 # we can split the node!
                 # assemble child data
                 child_left_data = np.empty((n_dataLeft, self.config["dim"]), dtype=data.dtype)
@@ -58,9 +56,7 @@ class MRPTNode:
                 self.child_left = MRPTNode(child_left_data, child_left_data_ref, self, self.ctl)
                 self.child_right = MRPTNode(child_right_data, child_right_data_ref, self, self.ctl)
             else:
-                print("Creating Tree Node at level {} with {} datapoints -> Wanted to SPLIT but on child has no entries -> LINEAR".format(self.depth, len(data)))
                 # we need to stay linear
-
                 self.data = data
                 self.data_ref = data_ref
 

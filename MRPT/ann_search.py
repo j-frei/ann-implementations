@@ -65,16 +65,26 @@ if __name__ == "__main__":
     print(nearest_point_idx)
     print(points[nearest_point_idx])
 
+    import time
+    # Time for 1M entries
 
     print("Building huge dataset (1M data points)")
     points = np.random.random((1000000,200))
+
     print("Building tree...")
+    time_build_start = time.time()
     mrpt_test = MRPT(config={"alpha": 0.9, "min_split": 50, "max_depth": 200})
     mrpt_test.initialize(points)
 
+    time_build_stop = time.time()
+    print("Building tree took: {}s".format(time_build_stop-time_build_start))
+
     print("Query point")
     query_point = np.random.random(200)
+    time_query_start = time.time()
     nearest_point_idx = mrpt_test.findNearest(query_point)
+    time_query_stop = time.time()
+    print("Querying point took: {}s".format(time_query_stop-time_query_start))
     print("RESULTS:")
     print("Query point:")
     print(query_point)
